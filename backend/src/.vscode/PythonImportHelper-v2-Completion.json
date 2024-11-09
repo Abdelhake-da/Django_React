@@ -218,7 +218,7 @@
         "kind": 5,
         "importPath": "api.urls",
         "description": "api.urls",
-        "peekOfCode": "app_name = 'api'\nrouter = DefaultRouter()\nrouter.register(r'projects', ProjectViewSet, basename='project')\nurlpatterns = router.urls",
+        "peekOfCode": "app_name = 'api'\nrouter = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nurlpatterns = router.urls",
         "detail": "api.urls",
         "documentation": {}
     },
@@ -227,7 +227,7 @@
         "kind": 5,
         "importPath": "api.urls",
         "description": "api.urls",
-        "peekOfCode": "router = DefaultRouter()\nrouter.register(r'projects', ProjectViewSet, basename='project')\nurlpatterns = router.urls",
+        "peekOfCode": "router = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nurlpatterns = router.urls",
         "detail": "api.urls",
         "documentation": {}
     },
