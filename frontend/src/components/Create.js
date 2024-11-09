@@ -18,7 +18,7 @@ const Create = () => {
         start_date: '',
         end_date: '',
     }
-    const { handleSubmit, reset, setValue, control } = useForm({ defaultValues: defaultValue });
+    const { handleSubmit, control } = useForm({ defaultValues: defaultValue });
     const submission = (data) => {
         const StartDate = Dayjs(data.start_date["$d"]).format('YYYY-MM-DD')
         const EndDate = Dayjs(data.end_date["$d"]).format('YYYY-MM-DD')

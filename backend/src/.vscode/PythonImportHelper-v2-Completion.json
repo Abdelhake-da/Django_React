@@ -245,7 +245,7 @@
         "kind": 6,
         "importPath": "api.views",
         "description": "api.views",
-        "peekOfCode": "class ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = Project.objects.all()\n    serializer_class = ProjectSerializer\n    def list(self, request):\n        queryset = self.queryset\n        serializer = ProjectSerializer(queryset, many=True)\n        return Response(serializer.data)\n    def create(self, request):\n        serializer = ProjectSerializer(data=request.data)",
+        "peekOfCode": "class ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = Project.objects.all()\n    print(len(queryset))\n    serializer_class = ProjectSerializer\n    def list(self, request):\n        queryset = self.queryset\n        serializer = ProjectSerializer(queryset, many=True)\n        return Response(serializer.data)\n    def create(self, request):",
         "detail": "api.views",
         "documentation": {}
     },
@@ -254,7 +254,7 @@
         "kind": 2,
         "importPath": "api.views",
         "description": "api.views",
-        "peekOfCode": "def home(request):\n    return HttpResponse(\"Hello World!\")\nclass ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = Project.objects.all()\n    serializer_class = ProjectSerializer\n    def list(self, request):\n        queryset = self.queryset\n        serializer = ProjectSerializer(queryset, many=True)\n        return Response(serializer.data)",
+        "peekOfCode": "def home(request):\n    return HttpResponse(\"Hello World!\")\nclass ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = Project.objects.all()\n    print(len(queryset))\n    serializer_class = ProjectSerializer\n    def list(self, request):\n        queryset = self.queryset\n        serializer = ProjectSerializer(queryset, many=True)",
         "detail": "api.views",
         "documentation": {}
     },
