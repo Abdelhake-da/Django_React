@@ -11,10 +11,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 function Edit() {
     const MyParam = useParams()
     const MyId = MyParam.id
-    const [loading, setLoading] = useState(true)
     const GetData = () => {
         AxiosInstance.get(`project/${MyId}`).then((res) => {
-            setLoading(false)
             setValue('name', res.data.name)
             setValue('comments', res.data.comments)
             setValue('status', res.data.status)
@@ -38,7 +36,7 @@ function Edit() {
     const submission = (data) => {
         const StartDate = Dayjs(data.start_date["$d"]).format('YYYY-MM-DD')
         const EndDate = Dayjs(data.end_date["$d"]).format('YYYY-MM-DD')
-        AxiosInstance.post('project/',
+        AxiosInstance.put(`project/${MyId}/`,
             {
                 name: data.name,
                 comments: data.comments,
@@ -60,7 +58,7 @@ function Edit() {
                     marginBottom: '10px',
                 }}>
                     <Typography sx={{ marginLeft: '20px', color: '#fff' }}>
-                        Create records
+                        Edit records
                     </Typography>
 
                 </Box>

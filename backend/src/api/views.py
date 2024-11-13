@@ -48,3 +48,4 @@ class ProjectViewSet(viewsets.ViewSet):
         Project = self.queryset.get(pk=pk)
         Project.delete()
         return Response(status=204)
+
