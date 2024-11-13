@@ -3,8 +3,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Controller } from "react-hook-form";
+
 export default function MyDatePickerField(props) {
     const { label, name, control, width } = props;
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Controller
@@ -13,13 +15,22 @@ export default function MyDatePickerField(props) {
                 render={({
                     field: { onChange, value },
                     fieldState: { error },
-                    formState,
                 }) => (
                     <DatePicker
-                        onChange={onChange}
-                        value={value}
+                        onChange={(newValue) => {
+                            // Update the field value with Dayjs object or null
+                            onChange(newValue ? newValue : null);
+                        }}
+                        value={value || null}  // Ensure null is set if no value
                         label={label}
-                        sx={{ width: { width } }} />
+                        sx={{ width: width }}
+                        slotProps={{
+                            textField: {
+                                error: !!error,
+                                helperText: error ? error.message : null,
+                            },
+                        }}
+                    />
                 )}
             />
         </LocalizationProvider>

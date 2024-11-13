@@ -17,6 +17,7 @@ export default function MySelectField(props) {
             <Controller
                 name={name}
                 control={control}
+
                 render={({
                     field: { onChange, value },
                     fieldState: { error },
@@ -29,6 +30,8 @@ export default function MySelectField(props) {
                         onChange={onChange}
                         value={value}
                         label="Age"
+                        error={!!error}
+                        helperText={error ? error.message : null}
                     >
                         <MenuItem value="">
                             <em>None</em>

@@ -7,6 +7,7 @@ export default function MyMultilineField(props) {
         <Controller
             name={name}
             control={control}
+
             render={({
                 field: { onChange, value },
                 fieldState: { error },
@@ -22,6 +23,8 @@ export default function MyMultilineField(props) {
                     rows={1}
                     variant="standard"
                     placeholder={placeholder}
+                    error={!!error}
+                    helperText={error ? error.message : null}
                 />)}
         />
     );
