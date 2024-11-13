@@ -7,7 +7,9 @@ import {
     Edit as EditIcon,
     Delete as DeleteIcon,
 } from '@mui/icons-material';
+import { Link, useNavigate } from 'react-router-dom'
 const Home = () => {
+    const navigate = useNavigate();
     const [myData, setMyData] = useState([])
     const [loading, setLoading] = useState(true)
     const GetData = () => {
@@ -55,19 +57,24 @@ const Home = () => {
     return (
         <div>
             {loading ? <h1>Loading</h1> :
-                <MaterialReactTable columns={columns} data={myData}
+                <MaterialReactTable
+                    columns={columns}
+                    data={myData}
                     enableRowActions
-                    renderRowActions={({ row, table }) => (
+                    muiTableBodyRowProps={(row) => ({
+                        onClick: () => {
+                            // Navigate to the edit page using the row's ID without page reload
+                            navigate(`/edit/${row.row.original.id}`);
+                        },
+                        style: { cursor: 'pointer' },
+                    })}
+                    renderRowActions={({ row }) => (
                         <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
-                            <IconButton color="secondary">
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton color="error" >
+                            <IconButton color="error">
                                 <DeleteIcon />
                             </IconButton>
                         </Box>
                     )}
-
                 />
             }
 

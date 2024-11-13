@@ -187,6 +187,15 @@
         "documentation": {}
     },
     {
+        "label": "ProjectAdmin",
+        "kind": 6,
+        "importPath": "api.admin",
+        "description": "api.admin",
+        "peekOfCode": "class ProjectAdmin(admin.ModelAdmin):\n    list_display = ('name', 'comments', 'start_date', 'end_date', 'status')\n    list_filter = ('name', 'comments', 'start_date', 'end_date', 'status')\n    search_fields = ('name', 'comments', 'start_date', 'end_date', 'status')\n    ordering = ('name', 'comments', 'start_date', 'end_date', 'status')\n    # date_hierarchy = 'start_date'\n    # list_per_page = 25\n    # list_max_show_all = 100\n    # list_editable = ('comments', 'start_date', 'end_date', 'status')\n    # list_display_links = ('name',)",
+        "detail": "api.admin",
+        "documentation": {}
+    },
+    {
         "label": "ApiConfig",
         "kind": 6,
         "importPath": "api.apps",
@@ -209,7 +218,7 @@
         "kind": 6,
         "importPath": "api.serializers",
         "description": "api.serializers",
-        "peekOfCode": "class ProjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Project\n        fields = ('name', 'comments', 'start_date', 'end_date', 'status')",
+        "peekOfCode": "class ProjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Project\n        fields = ('id','name', 'comments', 'start_date', 'end_date', 'status')",
         "detail": "api.serializers",
         "documentation": {}
     },
