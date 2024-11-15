@@ -2,19 +2,25 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
-from .serializers import ProjectSerializer
-from .models import Project
+from .serializers import ProjectManagerSerializer, ProjectSerializer
+from .models import Project, ProjectManager
 # Create your views here.
 def home(request):
     return HttpResponse("Hello World!")
-
+class ProjectManagerViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+    queryset = ProjectManager.objects.all()
+    serializer_class = ProjectManagerSerializer
+    def list(self, request):
+        queryset = ProjectManager.objects.all()
+        serializer = ProjectManagerSerializer(queryset, many=True)
+        return Response(serializer.data)
 class ProjectViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
     queryset = Project.objects.all()
-    print(len(queryset))
     serializer_class = ProjectSerializer
     def list(self, request):
-        queryset = self.queryset
+        queryset = Project.objects.all()
         serializer = ProjectSerializer(queryset, many=True)
         return Response(serializer.data)
     def create(self, request):

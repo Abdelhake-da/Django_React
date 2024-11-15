@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Controller } from "react-hook-form";
 export default function MySelectField(props) {
-    const { label, name, control, width } = props;
+    const { label, name, control, width, items_list } = props;
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -33,12 +33,16 @@ export default function MySelectField(props) {
                         error={!!error}
                         helperText={error ? error.message : null}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={'Open'}>Open</MenuItem>
-                        <MenuItem value={'In progress'}>In progress</MenuItem>
-                        <MenuItem value={'Completed'}>Completed</MenuItem>
+                        {items_list.length > 0 ? (
+                            items_list.map((item) => (
+                                <MenuItem value={item.id}>
+                                    {item.name}
+                                </MenuItem>
+                            ))
+                        ) : (
+                            <MenuItem disabled>No items available</MenuItem>
+                        )}
+
                     </Select>
                 )}
             />

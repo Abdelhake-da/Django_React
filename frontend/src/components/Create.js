@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import MyTextField from './forms/MyTextField';
 import MySelectField from './forms/MySelectField';
@@ -12,6 +12,38 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 const Create = () => {
+    const hardcoded_list_items = [
+        {
+            id: '',
+            name: 'None',
+        },
+        {
+            id: 'Open',
+            name: 'Open',
+        },
+        {
+            id: 'In progress',
+            name: 'In Progress',
+        },
+        {
+            id: 'Completed',
+            name: 'Completed',
+        },
+    ];
+    const [project_manager, setProject_manager] = useState();
+    const [loading, setLoading] = useState(true);
+
+    const GetData = () => {
+        AxiosInstance.get('project_manager/').then((res) => {
+            setProject_manager(res.data);
+            console.log(res.data);
+            setLoading(false);
+        });
+    };
+
+    useEffect(() => {
+        GetData();
+    }, []);
     const navigate = useNavigate();
     const width = '30%';
 
@@ -29,6 +61,7 @@ const Create = () => {
         status: yup.string().required("Status is required"),
         start_date: yup.date().required("Start date is required"),
         end_date: yup.date().required("End date is required").min(yup.ref('start_date'), "End date must be greater than start date"),
+        project_manager: yup.string().required("Project manager is required"),
     });
 
     const { handleSubmit, control } = useForm({ defaultValues: defaultValue, resolver: yupResolver(schema) });
@@ -43,6 +76,7 @@ const Create = () => {
             status: data.status,
             start_date: StartDate,
             end_date: EndDate,
+            project_manager: data.project_manager,
         }).then((res) => {
             navigate('/');
         });
@@ -50,36 +84,42 @@ const Create = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(submission)}>
-                <Box sx={{
-                    display: 'flex',
-                    width: '100%',
-                    backgroundColor: '#00003f',
-                    marginBottom: '10px',
-                }}>
-                    <Typography sx={{ marginLeft: '20px', color: '#fff' }}>
-                        Create records
-                    </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', width: '100%', boxShadow: 3, padding: 4, flexDirection: "column" }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '40px' }}>
-                        <MyTextField label="Name" placeholder="Provide a project name" name="name" control={control} width={width} />
-                        <MyDatePickerField label="Start Date" name="start_date" control={control} width={width} />
-                        <MyDatePickerField label="End Date" name="end_date" control={control} width={width} />
+            {loading ? (
+                <h1>Loading</h1>
+            ) : (
+                <form onSubmit={handleSubmit(submission)}>
+                    <Box sx={{
+                        display: 'flex',
+                        width: '100%',
+                        backgroundColor: '#00003f',
+                        marginBottom: '10px',
+                    }}>
+                        <Typography sx={{ marginLeft: '20px', color: '#fff' }}>
+                            Create records
+                        </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <MyMultilineField label="Comments" placeholder="Provide project comments" name="comments" control={control} width={width} />
-                        <MySelectField label="Status" name="status" control={control} width={width} />
-                        <Box sx={{ width: '30%' }}>
-                            <Button variant='contained' type='submit' sx={{ width: '100%' }}>
+                    <Box sx={{ display: 'flex', width: '100%', boxShadow: 3, padding: 4, flexDirection: "column" }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '40px' }}>
+                            <MyTextField label="Name" placeholder="Provide a project name" name="name" control={control} width={width} />
+                            <MyDatePickerField label="Start Date" name="start_date" control={control} width={width} />
+                            <MyDatePickerField label="End Date" name="end_date" control={control} width={width} />
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+                            <MyMultilineField label="Comments" placeholder="Provide project comments" name="comments" control={control} width={width} />
+                            <MySelectField label="Status" name="status" control={control} width={width} items_list={hardcoded_list_items} />
+                            <MySelectField label="Project Manager" name="project_manager" control={control} width={width} items_list={project_manager} />
+                        </Box>
+                        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+                            <Button variant='contained' type='submit' sx={{ width: '30%' }}>
                                 Submit
                             </Button>
                         </Box>
                     </Box>
-                </Box>
-            </form>
+                </form>
+            )}
         </div>
     );
 };
 
 export default Create;
+

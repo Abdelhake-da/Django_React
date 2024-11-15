@@ -30,6 +30,11 @@ const Home = () => {
                 size: 150,
             },
             {
+                accessorKey: 'project_manager',
+                header: 'Project Manager',
+                size: 150,
+            },
+            {
                 accessorKey: 'status',
                 header: 'Status',
                 size: 150,

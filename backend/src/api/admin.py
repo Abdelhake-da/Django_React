@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project
+from .models import Project, ProjectManager
 # Register your models here.
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'comments', 'start_date', 'end_date', 'status')
@@ -19,3 +19,4 @@ class ProjectAdmin(admin.ModelAdmin):
     # list_display_links = ('name',)
     # list_select_related = True
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(ProjectManager)
