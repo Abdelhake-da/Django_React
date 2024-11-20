@@ -48,6 +48,54 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -246,6 +294,33 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "api.migrations.0004_employees",
+        "description": "api.migrations.0004_employees",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('api', '0003_project_project_manager'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Employees',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('name', models.CharField(max_length=100, unique=True)),",
+        "detail": "api.migrations.0004_employees",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "api.migrations.0005_project_employees",
+        "description": "api.migrations.0005_project_employees",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('api', '0004_employees'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='employees',\n            field=models.ManyToManyField(blank=True, null=True, to='api.employees'),\n        ),",
+        "detail": "api.migrations.0005_project_employees",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "api.migrations.0006_alter_project_employees",
+        "description": "api.migrations.0006_alter_project_employees",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('api', '0005_project_employees'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='employees',\n            field=models.ManyToManyField(blank=True, to='api.employees'),\n        ),",
+        "detail": "api.migrations.0006_alter_project_employees",
+        "documentation": {}
+    },
+    {
         "label": "ProjectAdmin",
         "kind": 6,
         "importPath": "api.admin",
@@ -268,7 +343,16 @@
         "kind": 6,
         "importPath": "api.models",
         "description": "api.models",
-        "peekOfCode": "class ProjectManager(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    def __str__(self):\n        return self.name\nclass Project(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    project_manager = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True, blank=True)\n    comments = models.TextField(max_length=500,blank=True , null=True)",
+        "peekOfCode": "class ProjectManager(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    def __str__(self):\n        return self.name\nclass Employees(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)",
+        "detail": "api.models",
+        "documentation": {}
+    },
+    {
+        "label": "Employees",
+        "kind": 6,
+        "importPath": "api.models",
+        "description": "api.models",
+        "peekOfCode": "class Employees(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    def __str__(self):\n        return self.name\nclass Project(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    employees = models.ManyToManyField(Employees, blank=True)\n    project_manager = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True, blank=True)",
         "detail": "api.models",
         "documentation": {}
     },
@@ -277,7 +361,7 @@
         "kind": 6,
         "importPath": "api.models",
         "description": "api.models",
-        "peekOfCode": "class Project(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    project_manager = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True, blank=True)\n    comments = models.TextField(max_length=500,blank=True , null=True)\n    start_date = models.DateField()\n    end_date = models.DateField()\n    status = models.CharField(max_length=100)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    def __str__(self):",
+        "peekOfCode": "class Project(models.Model):\n    name = models.CharField(max_length=100,unique=True)\n    employees = models.ManyToManyField(Employees, blank=True)\n    project_manager = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True, blank=True)\n    comments = models.TextField(max_length=500,blank=True , null=True)\n    start_date = models.DateField()\n    end_date = models.DateField()\n    status = models.CharField(max_length=100)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)",
         "detail": "api.models",
         "documentation": {}
     },
@@ -286,7 +370,7 @@
         "kind": 6,
         "importPath": "api.serializers",
         "description": "api.serializers",
-        "peekOfCode": "class ProjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Project\n        fields = ('id','name','project_manager', 'comments', 'start_date', 'end_date', 'status')\nclass ProjectManagerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = ProjectManager\n        fields = ('id','name')",
+        "peekOfCode": "class ProjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Project\n        fields = ('id','name','project_manager', 'comments', 'start_date', 'end_date', 'status','employees')\nclass ProjectManagerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = ProjectManager\n        fields = ('id','name')\nclass EmployeesSerializer(serializers.ModelSerializer):\n    class Meta:",
         "detail": "api.serializers",
         "documentation": {}
     },
@@ -295,7 +379,16 @@
         "kind": 6,
         "importPath": "api.serializers",
         "description": "api.serializers",
-        "peekOfCode": "class ProjectManagerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = ProjectManager\n        fields = ('id','name')",
+        "peekOfCode": "class ProjectManagerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = ProjectManager\n        fields = ('id','name')\nclass EmployeesSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Employees\n        fields = ('id','name')",
+        "detail": "api.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "EmployeesSerializer",
+        "kind": 6,
+        "importPath": "api.serializers",
+        "description": "api.serializers",
+        "peekOfCode": "class EmployeesSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Employees\n        fields = ('id','name')",
         "detail": "api.serializers",
         "documentation": {}
     },
@@ -304,7 +397,7 @@
         "kind": 5,
         "importPath": "api.urls",
         "description": "api.urls",
-        "peekOfCode": "app_name = 'api'\nrouter = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nrouter.register(r'project_manager', ProjectManagerViewSet, basename='project_manager')\nurlpatterns = router.urls",
+        "peekOfCode": "app_name = 'api'\nrouter = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nrouter.register(r'project_manager', ProjectManagerViewSet, basename='project_manager')\nrouter.register(r'employees', EmployeesViewSet, basename='employees')\nurlpatterns = router.urls",
         "detail": "api.urls",
         "documentation": {}
     },
@@ -313,7 +406,7 @@
         "kind": 5,
         "importPath": "api.urls",
         "description": "api.urls",
-        "peekOfCode": "router = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nrouter.register(r'project_manager', ProjectManagerViewSet, basename='project_manager')\nurlpatterns = router.urls",
+        "peekOfCode": "router = DefaultRouter()\nrouter.register(r'project', ProjectViewSet, basename='project')\nrouter.register(r'project_manager', ProjectManagerViewSet, basename='project_manager')\nrouter.register(r'employees', EmployeesViewSet, basename='employees')\nurlpatterns = router.urls",
         "detail": "api.urls",
         "documentation": {}
     },
@@ -331,7 +424,16 @@
         "kind": 6,
         "importPath": "api.views",
         "description": "api.views",
-        "peekOfCode": "class ProjectManagerViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = ProjectManager.objects.all()\n    serializer_class = ProjectManagerSerializer\n    def list(self, request):\n        queryset = ProjectManager.objects.all()\n        serializer = ProjectManagerSerializer(queryset, many=True)\n        return Response(serializer.data)\nclass ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]",
+        "peekOfCode": "class ProjectManagerViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = ProjectManager.objects.all()\n    serializer_class = ProjectManagerSerializer\n    def list(self, request):\n        queryset = ProjectManager.objects.all()\n        serializer = ProjectManagerSerializer(queryset, many=True)\n        return Response(serializer.data)\nclass EmployeesViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]",
+        "detail": "api.views",
+        "documentation": {}
+    },
+    {
+        "label": "EmployeesViewSet",
+        "kind": 6,
+        "importPath": "api.views",
+        "description": "api.views",
+        "peekOfCode": "class EmployeesViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]\n    queryset = Employees.objects.all()\n    serializer_class = EmployeesSerializer\n    def list(self, request):\n        queryset = Employees.objects.all()\n        serializer = EmployeesSerializer(queryset, many=True)\n        return Response(serializer.data)\nclass ProjectViewSet(viewsets.ViewSet):\n    permission_classes = [permissions.AllowAny]",
         "detail": "api.views",
         "documentation": {}
     },
